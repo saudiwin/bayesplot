@@ -107,7 +107,8 @@ mcmc_recover_intervals <-
            prob_outer = 0.9,
            point_est = c("median", "mean", "none"),
            size = 4,
-           alpha = 1) {
+           alpha = 1,
+          trelliscope_js=FALSE) {
 
     check_ignored_arguments(...)
     x <- merge_chains(prepare_mcmc_array(x))
@@ -193,13 +194,19 @@ mcmc_recover_intervals <-
         name = "",
         values = c(Estimated = 21, True = 24)
       ) +
-      do.call("facet_wrap", facet_args) +
       labs(y = "Value", x = "Parameter", subtitle = plot_caption) +
       theme_default() +
       theme(plot.caption = element_text(hjust = 0)) +
       xaxis_title(FALSE) +
       yaxis_title(FALSE)
 
+    if(trelliscope_js) {
+      graph <- graph + do.call("facet_trelliscope", facet_args)
+    } else {
+      graph <- graph + do.call("facet_wrap", facet_args)
+      }
+        
+        
     if (all_separate)
       return(
         graph +
