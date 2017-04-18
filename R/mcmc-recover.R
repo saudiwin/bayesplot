@@ -201,7 +201,7 @@ mcmc_recover_intervals <-
       yaxis_title(FALSE)
 
     if(trelliscope_js) {
-      graph <- graph + do.call("facet_trelliscope", facet_args)
+      graph <- graph + do.call("trelliscopejs::facet_trelliscope", facet_args)
     } else {
       graph <- graph + do.call("facet_wrap", facet_args)
       }
